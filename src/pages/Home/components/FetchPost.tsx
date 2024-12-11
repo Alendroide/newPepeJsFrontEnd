@@ -8,7 +8,7 @@ export default function FetchPost(){
     const url = 'http://localhost:4000/api/posts/page/1';
     //Inicializaciones
     const navigate = useNavigate()
-    const [posts,setPosts] = useState<postSchema[]>([])
+    const [posts,setPosts] = useState<postSchema[]>([]);
     //Get Request
     useEffect(()=>{
         async function getPost(){
@@ -21,7 +21,9 @@ export default function FetchPost(){
                             'Authorization': `Bearer ${token}`,
                         }
                     });
-                    setPosts(posts.data);
+                    if(Array.isArray(posts.data)){
+                        setPosts(posts.data);
+                    }
                 } else {
                     navigate('/login');
                 }

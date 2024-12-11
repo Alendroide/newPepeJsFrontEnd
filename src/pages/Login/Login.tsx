@@ -2,9 +2,8 @@
 import { useForm } from "react-hook-form";
 import { loginSchema } from "../../schemas/loginSchema";
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.css'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //Componente
 export default function Login(){
     //URL para iniciar sesión
@@ -37,7 +36,7 @@ export default function Login(){
         <div className="w-50 mx-auto bg-light shadow-lg p-5 rounded-5 my-5">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h2>Iniciar sesión</h2>
-                <div className="my-4">
+                <div className="my-4 w-25">
                     <label htmlFor="email">E-mail:</label>
                     <input
                         {...register("email")}
@@ -49,7 +48,7 @@ export default function Login(){
                     {errors.email && <p>{errors.email.message}</p>}
                     {emailErr && <p>{emailErr}</p>}
                 </div>
-                <div className="my-4">
+                <div className="my-4 w-25">
                     <label htmlFor="password">Contraseña:</label>
                     <input
                         {...register("password")}
@@ -59,6 +58,9 @@ export default function Login(){
                     />
                     {errors.password && <p>{errors.password.message}</p>}
                     {passErr && <p>{passErr}</p>}
+                    <p className="my-3">
+                        No tienes una cuenta? <Link to={'/register'}>Regístrate aquí</Link>
+                    </p>
                 </div>
                 <button type="submit" className="btn btn-outline-info">Log In</button>
             </form>

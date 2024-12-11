@@ -10,3 +10,9 @@ export interface postSchema {
         img? : string
     }
 }
+
+export interface newPostSchema {
+    title : string,
+    body : string,
+    img? : FileList
+}
