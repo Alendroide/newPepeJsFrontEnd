@@ -4,6 +4,7 @@ import { newPostSchema } from "../../../schemas/postSchema"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import '../css/styles.css';
+import { useState } from "react";
 //Interface
 interface Props {
     onPostSubmit : Function
@@ -14,7 +15,8 @@ export default function PostForm({onPostSubmit} : Props){
     const url = 'http://localhost:4000/api/posts';
     //Inicializaciones
     const navigate = useNavigate()
-    const { register, formState : { errors }, reset, handleSubmit } = useForm<newPostSchema>()
+    const { register, formState : { errors }, reset, handleSubmit, setValue } = useForm<newPostSchema>()
+    const [preview,setPreview] = useState<string | null>(null);
     //Función handleSubmit
     const onSubmit = async(data : newPostSchema) => {
         try{
@@ -31,6 +33,7 @@ export default function PostForm({onPostSubmit} : Props){
                         'Authorization': `Bearer ${token}`,
                     }
                 });
+                setPreview(null);
                 reset();
                 onPostSubmit();
             } else {
@@ -41,6 +44,24 @@ export default function PostForm({onPostSubmit} : Props){
             console.error(error)
         }
     }
+    //Función preview
+    const handleFilePreview = (e : React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if(file){
+            const previewURL = URL.createObjectURL(file);
+            setPreview(previewURL);
+        }
+        else{
+            setPreview(null);
+        }
+
+    }
+
+    const handleCancelUpload = () => {
+        setValue("img",undefined);
+        setPreview(null);
+    }
+
     //HTML
     return(
         <>
@@ -62,6 +83,28 @@ export default function PostForm({onPostSubmit} : Props){
                         placeholder="Qué estás pensando?"
                     />
                     {errors.body && <p>{errors.body.message}</p>}
+                    {preview && (
+                        <div className="my-3">
+                            <img
+                                style={{
+                                    width : '20%',
+                                    height : '20%'
+                                }}
+                                className="rounded-5 shadow"
+                                src={preview}
+                                alt="preview"
+                            />
+                            <img
+                                onClick={handleCancelUpload}
+                                src="/x.svg"
+                                alt="X"
+                                className="btn btn-danger p-0 mx-3"
+                                style={{
+                                    width : '30px'
+                                }}
+                            />
+                        </div>
+                    )}
                     <div className="d-flex align-items-center">
                         <div
                             className="file-upload rounded shadow-sm me-auto"
@@ -75,6 +118,9 @@ export default function PostForm({onPostSubmit} : Props){
                             <input
                                 {...register("img",{required:false})}
                                 type="file"
+                                onChange={(e)=>{
+                                    handleFilePreview(e)
+                                }}
                             />
                         </div>
                         <button className="btn btn-outline-info">Post</button>
