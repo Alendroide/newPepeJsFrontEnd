@@ -36,33 +36,37 @@ export default function Login(){
         <div className="w-50 mx-auto bg-light shadow-lg p-5 rounded-5 my-5">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h2>Iniciar sesión</h2>
-                <div className="my-4 w-25">
-                    <label htmlFor="email">E-mail:</label>
-                    <input
-                        {...register("email")}
-                        className="form-control"
-                        type="email"
-                        autoComplete="off"
-                        placeholder="emailejemplo@email.com"
-                    />
-                    {errors.email && <p>{errors.email.message}</p>}
-                    {emailErr && <p>{emailErr}</p>}
+                <div className="row">
+                    <div className="col col-3 col-lg-6 col-sm-12">
+                        <div className="my-4">
+                            <label htmlFor="email">E-mail:</label>
+                            <input
+                                {...register("email")}
+                                className="form-control"
+                                type="email"
+                                autoComplete="off"
+                                placeholder="emailejemplo@email.com"
+                            />
+                            {errors.email && <p>{errors.email.message}</p>}
+                            {emailErr && <p>{emailErr}</p>}
+                        </div>
+                        <div className="my-4">
+                            <label htmlFor="password">Contraseña:</label>
+                            <input
+                                {...register("password")}
+                                className="form-control"
+                                type="password"
+                                placeholder="********"
+                            />
+                            {errors.password && <p>{errors.password.message}</p>}
+                            {passErr && <p>{passErr}</p>}
+                            <p className="my-3">
+                                No tienes una cuenta? <Link to={'/register'}>Regístrate aquí</Link>
+                            </p>
+                        </div>
+                        <button type="submit" className="btn btn-outline-info">Log In</button>
+                    </div>
                 </div>
-                <div className="my-4 w-25">
-                    <label htmlFor="password">Contraseña:</label>
-                    <input
-                        {...register("password")}
-                        className="form-control"
-                        type="password"
-                        placeholder="********"
-                    />
-                    {errors.password && <p>{errors.password.message}</p>}
-                    {passErr && <p>{passErr}</p>}
-                    <p className="my-3">
-                        No tienes una cuenta? <Link to={'/register'}>Regístrate aquí</Link>
-                    </p>
-                </div>
-                <button type="submit" className="btn btn-outline-info">Log In</button>
             </form>
         </div>
     )

@@ -1,9 +1,14 @@
+//Importaciones
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postSchema } from "../../../schemas/postSchema";
 import axios from "axios";
+//Interface
+interface Props {
+    reloadTrigger : boolean
+}
 
-export default function FetchPost(){
+export default function FetchPost({reloadTrigger} : Props){
     //URL
     const url = 'http://localhost:4000/api/posts/page/1';
     //Inicializaciones
@@ -33,7 +38,7 @@ export default function FetchPost(){
             }
         }
         getPost()
-    },[])
+    },[reloadTrigger])
     return(
         <>
             {posts.map((post,index)=>(
