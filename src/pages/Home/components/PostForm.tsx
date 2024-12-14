@@ -13,10 +13,13 @@ interface Props {
 export default function PostForm({onPostSubmit} : Props){
     //URL
     const url = 'http://localhost:4000/api/posts';
+
     //Inicializaciones
     const navigate = useNavigate()
     const { register, formState : { errors }, reset, handleSubmit, setValue } = useForm<newPostSchema>()
     const [preview,setPreview] = useState<string | null>(null);
+    const [bodyLength,setBodyLength] = useState<number>(0);
+
     //Función handleSubmit
     const onSubmit = async(data : newPostSchema) => {
         try{
@@ -36,6 +39,7 @@ export default function PostForm({onPostSubmit} : Props){
                 setPreview(null);
                 reset();
                 onPostSubmit();
+                setBodyLength(0);
             } else {
                 navigate('/login');
             }
@@ -72,9 +76,17 @@ export default function PostForm({onPostSubmit} : Props){
                         className="d-block w-100  border-0 border-bottom"
                         type="text"
                         placeholder="Titulo..."
+                        maxLength={100}
                     />
                     {errors.title && <p>{errors.title.message}</p>}
                     <textarea
+                        onInput={(e)=>{
+                            const target = e.target as HTMLTextAreaElement;
+                            target.style.height = 'auto';
+                            target.style.height = `${target.scrollHeight}px`;
+                            setBodyLength(target.value.length);
+                        }}
+                        maxLength={1000}
                         {...register("body",{required:true})}
                         className="w-100 border-0"
                         style={{
@@ -123,6 +135,28 @@ export default function PostForm({onPostSubmit} : Props){
                                 }}
                             />
                         </div>
+                        
+                        {bodyLength == 1000? 
+                        
+                        <p
+                            className="p-0 m-0 mx-3"
+                            style={{
+                                color : '#ff0f0f'
+                            }}
+                        >
+                            Longitud máxima!
+                        </p>
+
+                        :
+                        
+                        <p
+                            className="p-0 m-0 mx-3"
+                            style={{
+                                color : '#c0c0c0'
+                            }}
+                        >{bodyLength}/1000</p>
+                        }
+
                         <button className="btn btn-outline-info">Post</button>
                     </div>
                 </div>

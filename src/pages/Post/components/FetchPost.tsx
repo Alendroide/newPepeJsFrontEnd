@@ -80,8 +80,16 @@ export default function FetchPost(){
                                 <b>@{post.user?.name}</b>
                             </div>
                         </div>
-                        <h6>{post.title}</h6>
-                        <p>{post.body}</p>
+                        <h6
+                            style={{
+                                wordWrap : 'break-word'
+                            }}
+                        >{post.title}</h6>
+                        <p
+                            style={{
+                                wordWrap : 'break-word'
+                            }}
+                        >{post.body}</p>
                         {post.img &&
                         <div
                             className="rounded-5 my-4"
