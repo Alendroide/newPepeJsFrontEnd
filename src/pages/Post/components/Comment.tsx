@@ -19,19 +19,21 @@ export default function Comment({ post, formatDate } : Props){
                     <div className="d-flex align-items-center mb-3">
                         {comment.user.img?
                         <img
+                            className="rounded-circle"
                             style={{
                                 width : '25px',
                                 height : '25px'
                             }}
-                            src=""
+                            src={comment.user.img}
                         />
                         :
                         <img
+                            className="rounded-circle"
                             style={{
                                 width : '25px',
                                 height : '25px'
                             }}
-                            src="/vite.svg"
+                            src="/defaultpfp.png"
                         />
                         }
                         

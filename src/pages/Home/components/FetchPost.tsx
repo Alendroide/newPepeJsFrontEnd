@@ -55,19 +55,21 @@ export default function FetchPost({reloadTrigger} : Props){
                         <div className="d-flex align-items-center mb-3">
                             {post.user?.img?
                             <img
+                                className="rounded-circle"
                                 style={{
                                     width : '40px',
                                     height : '40px'
                                 }}
-                                src=""
+                                src={post.user.img}
                             />
                             :
                             <img
+                                className="rounded-circle"
                                 style={{
                                     width : '40px',
                                     height : '40px'
                                 }}
-                                src="/vite.svg"
+                                src="/defaultpfp.png"
                             />
                             }
                             
@@ -75,8 +77,16 @@ export default function FetchPost({reloadTrigger} : Props){
                                 <b>@{post.user?.name}</b>
                             </div>
                         </div>
-                        <h6>{post.title}</h6>
-                        <p>{post.body}</p>
+                        <h6
+                            style={{
+                                wordWrap : 'break-word'
+                            }}
+                        >{post.title}</h6>
+                        <p
+                            style={{
+                                wordWrap : 'break-word'
+                            }}
+                        >{post.body}</p>
                         {post.img &&
                         <div
                             className="rounded-5 my-4"

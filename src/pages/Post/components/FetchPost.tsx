@@ -58,19 +58,21 @@ export default function FetchPost(){
                         <div className="d-flex align-items-center mb-3">
                             {post.user?.img?
                             <img
+                                className="rounded-circle"
                                 style={{
                                     width : '40px',
                                     height : '40px'
                                 }}
-                                src=""
+                                src={post.user.img}
                             />
                             :
                             <img
+                                className="rounded-circle"
                                 style={{
                                     width : '40px',
                                     height : '40px'
                                 }}
-                                src="/vite.svg"
+                                src="/defaultpfp.png"
                             />
                             }
                             
