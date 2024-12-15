@@ -114,7 +114,6 @@ export default function PostForm(){
                         <div
                             className="file-upload rounded shadow-sm me-auto"
                             style={{
-                                backgroundImage : "url('/camera.svg')",
                                 backgroundSize : '80%',
                                 backgroundPosition : 'center',
                                 backgroundRepeat : 'no-repeat'

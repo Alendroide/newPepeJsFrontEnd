@@ -1,0 +1,12 @@
+.logoNewPepeJs {
+    opacity: 60%;
+    transition: all;
+    transition-duration: 0.25s;
+}
+.logoNewPepeJs:hover {
+    transform: scale(1.2);
+    opacity: 100;
+}
+.logoNewPepeJs:active {
+    transform: scale(0.8);
+}

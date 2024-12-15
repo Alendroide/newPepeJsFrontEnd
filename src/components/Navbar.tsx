@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import '../css/Navbar.css';
 
 export default function Navbar(){
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ export default function Navbar(){
                         style={{
                             width : '40px'
                         }}
-                        className="ms-3"
+                        className="ms-3 logoNewPepeJs"
                         src="/newPepe.png"
                         alt="logo"
                     />
