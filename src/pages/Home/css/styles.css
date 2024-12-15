@@ -38,3 +38,20 @@ a{
     text-decoration: none;
     color : #000
 }
+
+.postUser {
+    transition: all;
+    transition-duration: 0.15s;
+}
+.postUser:hover {
+    color: #5fc2f5;   
+}
+
+.postUserImg{
+    transition: all;
+    transition-duration: 0.15s;  
+}
+
+.postUserImg:hover {
+    transform: scale(1.2);
+}

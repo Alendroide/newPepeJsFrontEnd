@@ -5,6 +5,7 @@ import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute"
 import Home from "./pages/Home/Home"
 import Register from "./pages/Register/Register"
 import Post from './pages/Post/Post'
+import User from './pages/User/User'
 function App() {
   return (
     <Router>
@@ -25,6 +26,13 @@ function App() {
         <Route path="/post/:id"  element={
           <ProtectedRoute>
             <Post/>
+          </ProtectedRoute>
+        } />
+
+        {/*User*/}
+        <Route path="/user/:id" element={
+          <ProtectedRoute>
+            <User/>
           </ProtectedRoute>
         } />
 

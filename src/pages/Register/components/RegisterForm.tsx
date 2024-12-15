@@ -63,7 +63,7 @@ export default function RegisterForm(){
                                 {...register("bio")}
                                 className="form-control"
                                 placeholder="Me gusta la Coca-Cola!"
-                                maxLength={200}
+                                maxLength={190}
                             />
                             {errors.bio && <p>{errors.bio.message}</p>}
                         </div>
@@ -73,6 +73,7 @@ export default function RegisterForm(){
                                 className="form-control"
                                 type="email"
                                 placeholder="emailejemplo@email.com"
+                                maxLength={40}
                             />
                             {errors.email && <p>{errors.email.message}</p>}
                         </div>

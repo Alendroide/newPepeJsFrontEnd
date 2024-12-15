@@ -14,28 +14,31 @@ export default function PostMapping({ posts, formatDate }: Props ){
                 <Link to={`/post/${post.id}`}>
                     <div className="bg-light p-5 shadow rounded-5 my-5">
                         <div className="d-flex align-items-center mb-3">
-                            {post.user?.img?
-                            <img
-                                className="rounded-circle"
-                                style={{
-                                    width : '40px',
-                                    height : '40px'
-                                }}
-                                src={post.user.img}
-                            />
-                            :
-                            <img
-                                className="rounded-circle"
-                                style={{
-                                    width : '40px',
-                                    height : '40px'
-                                }}
-                                src="/defaultpfp.png"
-                            />
-                            }
-                            
+                            <Link to={`/user/${post.user?.id}`}>
+                                {post.user?.img?
+                                <img
+                                    className="rounded-circle postUserImg"
+                                    style={{
+                                        width : '40px',
+                                        height : '40px'
+                                    }}
+                                    src={post.user.img}
+                                    />
+                                    :
+                                    <img
+                                    className="rounded-circle postUserImg"
+                                    style={{
+                                        width : '40px',
+                                        height : '40px'
+                                    }}
+                                    src="/defaultpfp.png"
+                                    />
+                                }
+                            </Link>
                             <div className="mx-3">
-                                <b>@{post.user?.name}</b>
+                                <Link to={`/user/${post.user?.id}`}>
+                                    <b className="postUser">@{post.user?.name}</b>
+                                </Link>
                             </div>
                         </div>
                         <h6
