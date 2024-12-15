@@ -7,12 +7,8 @@ import '../css/styles.css'
 import {formatDate} from '../../../functions/formatDate';
 import PostMapping from "./PostMapping";
 
-//Interface
-interface Props {
-    reloadTrigger : boolean
-}
 
-export default function FetchPost({reloadTrigger} : Props){
+export default function FetchPost(){
     
     //FETCHING URL
     const url = 'http://localhost:4000/api/posts/page/';
@@ -21,9 +17,8 @@ export default function FetchPost({reloadTrigger} : Props){
     const navigate = useNavigate()
     const [posts,setPosts] = useState<postSchema[]>([]);
 
-
     //INFINITE SCROLLING LOGIC
-    const [page,setPage] = useState<number>(2);
+    const [page,setPage] = useState<number>(1);
     const [loading,setLoading] = useState<boolean>(false);
     const [hasMore,setHasMore] = useState<boolean>(true);
 
@@ -31,7 +26,7 @@ export default function FetchPost({reloadTrigger} : Props){
     const handleScroll = () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
         if (scrollTop + clientHeight >= scrollHeight - 5 && !loading && hasMore) {
-        getMore(page);
+        getPosts(page);
         }
     };
 
@@ -43,7 +38,12 @@ export default function FetchPost({reloadTrigger} : Props){
 
     //GET POSTS
 
-    async function getMore(page : number){
+    //First Get Request
+    useEffect(()=>{
+        getPosts(page);
+    },[])
+
+    async function getPosts(page : number){
         if(loading || !hasMore) return;
         setLoading(true);
         const token = localStorage.getItem('token');
@@ -51,6 +51,7 @@ export default function FetchPost({reloadTrigger} : Props){
         axios.get<postSchema[]>( `${url}${page}`, { headers : { 'Authorization' : `Bearer ${token}` } } )
         .then(result=>{
             const data = result.data;
+            console.log(data);
             if(Array.isArray(data)){
                 setPosts(prev=>[...prev,...data]);
                 setPage(prev=>prev+1);
@@ -67,36 +68,10 @@ export default function FetchPost({reloadTrigger} : Props){
         })
     }
 
-    //First Get Request
-    useEffect(()=>{
-        setPosts([]);
-        const token = localStorage.getItem('token');
-        if(!token){navigate('/login')};
-        axios.get(`${url}1`,{
-            headers : {
-                'Authorization' : `Bearer ${token}`
-            }
-        })
-        .then(result=>{
-            console.log(result)
-            if(Array.isArray(result.data)){
-                setPosts(result.data);
-            }
-        })
-        .catch(error=>{
-            console.log(error);
-        })
-    },[reloadTrigger])
-
     //HTML
     return(
         <>
             <PostMapping posts={posts} formatDate={formatDate} />
-            {loading && 
-                <div className="my-4">
-                    Cargando más publicaciones...
-                </div>
-            }
         </>
     )
 }

@@ -1,16 +1,13 @@
 //Importaciones
 import { useForm } from "react-hook-form"
-import { newPostSchema } from "../../../schemas/postSchema"
+import { newPostSchema, postSchema } from "../../../schemas/postSchema"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import '../css/styles.css';
 import { useState } from "react";
-//Interface
-interface Props {
-    onPostSubmit : Function
-}
+
 //Componente
-export default function PostForm({onPostSubmit} : Props){
+export default function PostForm(){
     //URL
     const url = 'http://localhost:4000/api/posts';
 
@@ -31,36 +28,32 @@ export default function PostForm({onPostSubmit} : Props){
             }
             const token = localStorage.getItem('token');
             if (token) {
-                    await axios.post(url,form,{
+                await axios.post<postSchema>(url,form,{
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     }
                 });
                 setPreview(null);
                 reset();
-                onPostSubmit();
                 setBodyLength(0);
-            } else {
-                navigate('/login');
-            }
+                window.location.reload();
+            } else {navigate('/login')}
         }
         catch(error){
             console.error(error)
         }
     }
+
     //Función preview
     const handleFilePreview = (e : React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if(file){
             const previewURL = URL.createObjectURL(file);
             setPreview(previewURL);
-        }
-        else{
-            setPreview(null);
-        }
-
+        } else{setPreview(null)}
     }
 
+    //Cancelar subida de imagen
     const handleCancelUpload = () => {
         setValue("img",undefined);
         setPreview(null);
