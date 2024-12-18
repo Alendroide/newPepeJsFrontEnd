@@ -68,6 +68,14 @@ export default function PostMapping({ posts, formatDate }: Props ){
                         </div>
                         }
                         <p style={{color:'rgb(115, 115, 115)'}}>{formatDate(post.created_at)}</p>
+                        <div className="d-flex">
+                            <img
+                                className="me-3"
+                                src="/commentIcon.svg"
+                                alt="commentIcon"
+                            />
+                            {post._count.comments}
+                        </div>
                     </div>
                 </Link>
                 </div>

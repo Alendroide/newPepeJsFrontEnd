@@ -1,7 +1,7 @@
 import axios from "axios";
 import Comment from './Comment';
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { postSchema } from "../../../schemas/postSchema";
 import { format } from "date-fns";
 import PostComment from "./PostComment";
@@ -56,29 +56,32 @@ export default function FetchPost(){
                 <div className="w-50 mx-auto">
                     <div className="bg-light p-5 shadow rounded-5 my-5">
                         <div className="d-flex align-items-center mb-3">
-                            {post.user?.img?
-                            <img
-                                className="rounded-circle"
-                                style={{
-                                    width : '40px',
-                                    height : '40px'
-                                }}
-                                src={post.user.img}
-                            />
-                            :
-                            <img
-                                className="rounded-circle"
-                                style={{
-                                    width : '40px',
-                                    height : '40px'
-                                }}
-                                src="/defaultpfp.png"
-                            />
-                            }
-                            
-                            <div className="mx-3">
-                                <b>@{post.user?.name}</b>
-                            </div>
+                            <Link to={`/user/${post.user?.id}`}>
+                                {post.user?.img?
+                                <img
+                                    className="rounded-circle postUserImg"
+                                    style={{
+                                        width : '40px',
+                                        height : '40px'
+                                    }}
+                                    src={post.user.img}
+                                />
+                                :
+                                <img
+                                    className="rounded-circle postUserImg"
+                                    style={{
+                                        width : '40px',
+                                        height : '40px'
+                                    }}
+                                    src="/defaultpfp.png"
+                                />
+                                }
+                            </Link>
+                            <Link to={`/user/${post.user?.id}`}>
+                                <div className="mx-3 postUser">
+                                    <b>@{post.user?.name}</b>
+                                </div>
+                            </Link>
                         </div>
                         <h6
                             style={{
@@ -106,6 +109,14 @@ export default function FetchPost(){
                         </div>
                         }
                         <p style={{color:'rgb(115, 115, 115)'}}>{formatDate(post.created_at)}</p>
+                        <div className="d-flex">
+                            <img
+                                className="me-3"
+                                src="/commentIcon.svg"
+                                alt="commentIcon"
+                            />
+                            {post._count.comments}
+                        </div>
                         
                         <PostComment handleComment={handleComment} />
 

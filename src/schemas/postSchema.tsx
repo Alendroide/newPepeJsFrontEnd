@@ -6,11 +6,14 @@ export interface postSchema {
     body : string,
     img? : string,
     created_at : string,
-    comments : commentSchema[]
+    comments : commentSchema[],
     user? : {
         id : number,
         name : string,
         img? : string
+    },
+    _count : {
+        comments : number
     }
 }
 

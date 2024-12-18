@@ -1,16 +1,18 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function BackArrow(){
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(-1);
+    }
     return(
-        <div className="m-5">
-            <Link to={'/'}>
-                <img
-                    src="/backArrow.svg"
-                    style={{
-                        width : '30px'
-                    }}
-                />
-            </Link>
-        </div>
+        <img
+            src="/backArrow.svg"
+            style={{
+                width : '30px'
+            }}
+            className="backArrow"
+            onClick={handleClick}
+        />
     )
 }

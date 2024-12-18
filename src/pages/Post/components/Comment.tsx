@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { postSchema } from "../../../schemas/postSchema";
 
 interface Props {
@@ -17,29 +18,32 @@ export default function Comment({ post, formatDate } : Props){
                     }}
                 >
                     <div className="d-flex align-items-center mb-3">
-                        {comment.user.img?
-                        <img
-                            className="rounded-circle"
-                            style={{
-                                width : '25px',
-                                height : '25px'
-                            }}
-                            src={comment.user.img}
-                        />
-                        :
-                        <img
-                            className="rounded-circle"
-                            style={{
-                                width : '25px',
-                                height : '25px'
-                            }}
-                            src="/defaultpfp.png"
-                        />
-                        }
-                        
-                        <div className="mx-3">
+                        <Link to={`/user/${comment.user?.id}`}>
+                            {comment.user.img?
+                            <img
+                                className="rounded-circle postUserImg"
+                                style={{
+                                    width : '25px',
+                                    height : '25px'
+                                }}
+                                src={comment.user.img}
+                            />
+                            :
+                            <img
+                                className="rounded-circle postUserImg"
+                                style={{
+                                    width : '25px',
+                                    height : '25px'
+                                }}
+                                src="/defaultpfp.png"
+                            />
+                            }
+                        </Link>
+                        <Link to={`/user/${comment.user?.id}`}>
+                        <div className="mx-3 postUser">
                             <b>@{comment.user.name}</b>
                         </div>
+                        </Link>
                     </div>
                     <p
                         style={{

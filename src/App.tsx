@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home"
 import Register from "./pages/Register/Register"
 import Post from './pages/Post/Post'
 import User from './pages/User/User'
+import './css/App.css'
 function App() {
   return (
     <Router>

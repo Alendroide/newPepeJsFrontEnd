@@ -1,0 +1,11 @@
+.backArrow{
+    transition: all;
+    transition-duration: 0.25s;
+}
+.backArrow:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.backArrow:active{
+    transform: scale(0.8);
+}
